@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:radio_button_content_binding_context_repro"
+             x:Class="radio_button_content_binding_context_repro.MainPage">
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="radioButtonTemplate">
+            <Frame BackgroundColor="Pink">
+                <ContentPresenter />
+            </Frame>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel />
+    </ContentPage.BindingContext>
+    
+    <StackLayout>
+        <RadioButton ControlTemplate="{StaticResource radioButtonTemplate}"
+                     Content="{Binding Text}" />
+
+        <RadioButton ControlTemplate="{StaticResource radioButtonTemplate}">
+            <RadioButton.Content>
+                <Label Text="{Binding Text}" />
+            </RadioButton.Content>
+        </RadioButton>
+
+        <RadioButton ControlTemplate="{StaticResource radioButtonTemplate}">
+            <RadioButton.Content>
+                <Label Text="{Binding Source={RelativeSource Mode=FindAncestorBindingContext, AncestorType={x:Type local:MainPageViewModel}}, Path=Text}" />
+            </RadioButton.Content>
+        </RadioButton>
+    </StackLayout>
+
+</ContentPage>
